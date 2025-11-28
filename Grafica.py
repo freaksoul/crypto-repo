@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Cargar el archivo CSV
-df = pd.read_csv("C:\\Viboron\\bitcoin_precios.csv", names=["Fecha", "Precio"])
+df = pd.read_csv("C:\\Viboron\\CryptoProyecto\\bitcoin_precios.csv", names=["Fecha", "Precio"])
 
 # Convertir la columna de fecha a tipo datetime
 df["Fecha"] = pd.to_datetime(df["Fecha"])
