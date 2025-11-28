@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("C:\\Viboron\\BTC_precios.csv", parse_dates=["fecha"])
+df = pd.read_csv("C:\\Viboron\\CryptoProyecto\\BTC_precios.csv", parse_dates=["fecha"])
 #df = pd.read_csv("C:\\Viboron\\TUSD_precios.csv", parse_dates=["fecha"])
 df.sort_values("fecha", inplace=True)
 

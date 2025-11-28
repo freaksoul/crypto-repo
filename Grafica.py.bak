@@ -1,18 +1,27 @@
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
+from config import data_path
 
-# Cargar el archivo CSV
-df = pd.read_csv("C:\Viboron\bitcoin_precios.csv", names=["Fecha", "Precio"])
 
-# Convertir la columna de fecha a tipo datetime
-df["Fecha"] = pd.to_datetime(df["Fecha"])
+def main():
+	csv_file = data_path("bitcoin_precios.csv")
+	if not os.path.exists(csv_file):
+		print(f"Data file not found: {csv_file}. Run `recolector.py` first.")
+		return
 
-# Graficar
-plt.figure(figsize=(10, 5))
-plt.plot(df["Fecha"], df["Precio"], marker='o', linestyle='-', color='orange')
-plt.title("Precio de Bitcoin en Bitso")
-plt.xlabel("Fecha")
-plt.ylabel("Precio en MXN")
-plt.grid(True)
-plt.tight_layout()
-plt.show()
+	df = pd.read_csv(csv_file, names=["Fecha", "Precio"])
+	df["Fecha"] = pd.to_datetime(df["Fecha"])
+
+	plt.figure(figsize=(10, 5))
+	plt.plot(df["Fecha"], df["Precio"], marker='o', linestyle='-', color='orange')
+	plt.title("Precio de Bitcoin en Bitso")
+	plt.xlabel("Fecha")
+	plt.ylabel("Precio en MXN")
+	plt.grid(True)
+	plt.tight_layout()
+	plt.show()
+
+
+if __name__ == '__main__':
+	main()

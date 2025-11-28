@@ -1,7 +1,10 @@
+import os
 import requests, time, hmac, hashlib, json
+from datetime import datetime
 
-API_KEY = 'TU_API_KEY'
-API_SECRET = 'TU_API_SECRET'.encode()
+# Read API credentials from environment (safer than hardcoding)
+API_KEY = os.environ.get('API_KEY', 'TU_API_KEY')
+API_SECRET = os.environ.get('API_SECRET', 'TU_API_SECRET').encode()
 BASE_URL = 'https://api.bitso.com'
 
 def get_market_price(book='btc_mxn'):
@@ -32,14 +35,16 @@ def place_order(book, side, amount, price):
     res = requests.post(BASE_URL + url_path, headers=headers, data=payload)
     print(res.json())
 
-# Ejemplo: Compra 0.001 BTC si el precio está por debajo de $600,000 MXN
-price = get_market_price()
-fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-print ("fecha actual:", fecha )
-print("Precio actual btc_mxn:", price)
 
-if price < 600000:
-    place_order('btc_mxn', 'buy', 0.001, price)
-    print("¡Orden enviada!")
-else:
-    print("Precio demasiado alto. No se realizó compra.")
+if __name__ == '__main__':
+    # Example: place a small buy order if price below threshold (runs only when executed directly)
+    price = get_market_price()
+    fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print("fecha actual:", fecha)
+    print("Precio actual btc_mxn:", price)
+
+    if price < 600000:
+        place_order('btc_mxn', 'buy', 0.001, price)
+        print("¡Orden enviada!")
+    else:
+        print("Precio demasiado alto. No se realizó compra.")
