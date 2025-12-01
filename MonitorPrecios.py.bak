@@ -1,0 +1,29 @@
+import requests
+import time
+
+# Umbrales personalizados
+BUY_THRESHOLD = 2000000
+SELL_THRESHOLD = 2300000
+
+def get_btc_price():
+    url = "https://api.bitso.com/v3/ticker/?book=btc_mxn"
+    response = requests.get(url)
+    data = response.json()
+    return float(data['payload']['last'])
+
+def check_alerts(): 
+    price = get_btc_price()
+    print(f"Precio actual BTC: ${price:,.0f} MXN")
+
+    if price <= BUY_THRESHOLD:
+        print("🔔 Alerta: ¡Precio bajo! Considera comprar.")
+    elif price >= SELL_THRESHOLD:
+        print("🔔 Alerta: ¡Precio alto! Considera vender.")
+    else:
+        print("⏳ Sin acción. Esperando condiciones favorables.")
+
+# Ejecutar cada 30 minutos
+while True:
+    check_alerts()
+    time.sleep(1800)  # 30 minutos
+
