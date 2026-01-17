@@ -19,7 +19,7 @@ for libro in libros:
         precio = data['payload']['last']
         nombre = libro.split("_")[0].upper()
 
-        with open(f"C:\\Viboron\\{nombre}_precios.csv", mode="a", newline="") as archivo:
+        with open(f"C:\\Viboron\\CryptoProyecto\\{nombre}_precios.csv", mode="a", newline="") as archivo:
             writer = csv.writer(archivo)
             writer.writerow([fecha, precio])
 
