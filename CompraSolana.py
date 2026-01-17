@@ -2,18 +2,19 @@ import pandas as pd
 import requests
 
 # === CARGAR PRECIOS HISTÓRICOS ===
-df_sol = pd.read_csv("C:\\Viboron\\SOL_precios.csv", parse_dates=["fecha"])
-df_eth = pd.read_csv("C:\\Viboron\\ETH_precios.csv", parse_dates=["fecha"])
+df_sol = pd.read_csv("C:\\Viboron\\SOL_precios.csv", names=["fecha", "precio"], parse_dates=["fecha"])
+df_eth = pd.read_csv("C:\\Viboron\\ETH_precios.csv", names=["fecha", "precio"], parse_dates=["fecha"])
 df_sol.sort_values("fecha", inplace=True)
 df_eth.sort_values("fecha", inplace=True)
 
 # === FUNCIONES DE ANÁLISIS ===
 def calcular_umbral(df, nombre):
-    std = df["precio"].tail(30).std()
     media = df["precio"].tail(30).mean()
-    umbral = media - std
-    print(f"🎯 Umbral de compra sugerido para {nombre}: ${umbral:,.2f} USD")
-    return umbral
+    std = df["precio"].tail(30).std()
+    umbral_compra = media - std
+
+    print(f"🎯 Umbral de compra sugerido para {nombre}: ${umbral_compra:,.2f} USD")
+    return umbral_compra
 
 def obtener_precio_actual(moneda):
     url = f"https://api.coingecko.com/api/v3/simple/price?ids={moneda}&vs_currencies=usd"
