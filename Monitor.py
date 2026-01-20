@@ -9,7 +9,7 @@ CSV_PRECIOS = "C:\\Viboron\\tusd_precios.csv"
 LOG_FILE = "C:\\Viboron\\tusd_decisiones.csv"
 
 # Leer precios históricos
-df = pd.read_csv(CSV_PRECIOS, parse_dates=["fecha"])
+df = pd.read_csv(CSV_PRECIOS, names=["fecha", "precio"], parse_dates=["fecha"])
 df.sort_values("fecha", inplace=True)
 
 # Calcular umbral dinámico

@@ -3,7 +3,7 @@ from datetime import datetime
 
 # Umbrales personalizados
 umbrales = {
-    "btc_mxn": 1200000,
+    "btc_mxn": 1300000,
     "eth_mxn": 70000,
     "xrp_mxn": 20
 }
